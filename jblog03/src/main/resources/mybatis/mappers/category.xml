@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="category">
+
+
+	<insert id="insert" parameterType="categoryvo">	
+	<![CDATA[ 
+	 INSERT
+	 INTO
+	 category 
+	 VALUES(null , #{name} , #{desc} , #{blog_id})
+	]]>
+
+	</insert>
+	
+	<select id="selectNo" resultType="categoryvo" parameterType="categoryvo">
+	<![CDATA[
+		select no from category where blog_id= #{blog_id}
+	]]>
+	</select>
+	
+	<insert id="addCategory" parameterType="categoryvo">
+	<![CDATA[ 
+	 INSERT
+	 INTO
+	 category 
+	 VALUES(null , #{name} , #{desc} , #{blog_id})
+	]]>
+	</insert>
+	
+	<select id="findByCategory" parameterType="string" resultType="categoryvo">
+   		SELECT
+      		c.no, c.name, c.`desc`, c.blog_id, p.count AS count
+   		FROM
+      		category c 
+      		LEFT OUTER JOIN
+      						(SELECT 
+         							category_no, count(title) AS count 
+      						 FROM post 
+     	   					GROUP BY category_no) p
+   							ON
+      							c.no = p.category_no
+   		WHERE
+      		c.blog_id = #{id }
+   		ORDER BY
+      		name
+   </select>
+   
+   <select id="getNo" parameterType="string" resultType="Long">
+   	SELECT
+   		no 
+   	from 
+   		category
+   	where 
+   		blog_id = #{id}
+   	order by 
+   		no desc limit 1
+   </select>
+
+	
+
+
+
+
+</mapper>
