@@ -22,8 +22,8 @@ public class BlogRepository {
 		return sqlSession.selectOne(namespace+"findById", id);
 	}
 
-	public void update(BlogVo vo) {
-		sqlSession.update(namespace+"update", vo);
+	public void update(BlogVo vob) {
+		sqlSession.update(namespace+"update", vob);
 	}
 
 	

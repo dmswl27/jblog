@@ -55,9 +55,13 @@
    	where 
    		blog_id = #{id}
    	order by 
-   		no desc limit 1
+   		no limit 1
    </select>
-
+   
+   <delete id="delete" parameterType="categoryvo">
+    delete from category where blog_id = #{blog_id} and no = #{no}
+   </delete>
+  
 	
 
 

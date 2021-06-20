@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.douzone.jblog.security.Auth;
 import com.douzone.jblog.security.AuthUser;
 import com.douzone.jblog.service.BlogService;
 import com.douzone.jblog.service.CategoryService;
@@ -23,6 +24,7 @@ import com.douzone.jblog.vo.CategoryVo;
 import com.douzone.jblog.vo.PostVo;
 import com.douzone.jblog.vo.UserVo;
 import com.douzone.jblog.service.FileUploadService;
+
 
 @Controller
 @RequestMapping("/{id:(?!assets).*}") // assets 제외한 문자는 받아라 : ? 있어도 되고 없어도 되고 , ! 제외 
@@ -57,6 +59,7 @@ public class BlogController {
 			categoryNo = pathNo1.get();
 		} else {
             categoryNo = categoryService.getNo(id);
+            postNo = postService.getNo(categoryNo);
 		}
 
 		System.out.println("id:" + id);
@@ -76,30 +79,37 @@ public class BlogController {
 		List<PostVo> listp = postService.getPostAll(id, categoryNo);
 		model.addAttribute("listp",listp);
 		
-		PostVo vop = postService.findByCategoryNo(categoryNo);
+		PostVo vop = postService.findByCategoryNo(categoryNo, postNo);
 		model.addAttribute("vop",vop);
 		
 		application.setAttribute("title", vob.getTitle());
+		application.setAttribute("id", id);
 		
 		return "blog/main";
 	}
 
-	
+	@Auth
 	@RequestMapping(value="/admin/write", method=RequestMethod.GET)
-	public String adminWrite() {
+	public String adminWrite(
+			@PathVariable("id") String id,
+			Model model) {
+		List<CategoryVo> list = categoryService.findByCategory(id);
+		model.addAttribute("list", list);
 		return "blog/admin/write";
 	}
-	
+	@Auth
 	@RequestMapping(value="/admin/write", method=RequestMethod.POST)
 	public String adminWrite(@PathVariable("id") String id,
 			@RequestParam(value = "title", required=true, defaultValue="") String title,
-			@RequestParam(value = "contents", required=true, defaultValue="") String contents) {
-		PostVo vo = new PostVo();
+			@RequestParam(value = "contents", required=true, defaultValue="") String contents,
+			@RequestParam(value="category", required=true, defaultValue="") Long categoryNo) {
+		
+		postService.insertPost(categoryNo, title, contents);
 		
 		
-		return "blog/main";
+		return "redirect:/" +id + "/" +categoryNo ;
 	}
-	
+	@Auth
 	@RequestMapping(value="/admin/category", method=RequestMethod.GET)
 	public String adminCategory(@AuthUser UserVo authUser, Model model) {
 		List<CategoryVo> list = categoryService.findByCategory(authUser.getId());
@@ -107,7 +117,7 @@ public class BlogController {
 		return "blog/admin/category";
 		
 	}
-	
+	@Auth
 	@RequestMapping(value="/admin/category", method=RequestMethod.POST)
 	public String adminCategory(
 			@PathVariable("id") String id,
@@ -121,7 +131,16 @@ public class BlogController {
 		
 		return "redirect:/" +id+ "/admin/category";
 	}
-	
+	@Auth
+	@RequestMapping(value = "admin/delete/{no}")
+	public String delete(@PathVariable("no") Long no,
+			@PathVariable("id") String id) {
+		postService.delete(no);
+		categoryService.delete(no,id );
+		return "redirect:/" +id+ "/admin/category";
+		
+	}
+	@Auth
 	@RequestMapping(value="/admin/basic", method=RequestMethod.GET)
 	public String adminBasic(
 			@PathVariable("id") String id,
@@ -130,7 +149,7 @@ public class BlogController {
 		model.addAttribute("vob",vob);
 		return "blog/admin/basic";
 	}
-	
+	@Auth
 	@RequestMapping(value="/admin/basic", method=RequestMethod.POST)
 	public String adminBasic(@RequestParam("file1") MultipartFile file1,
 			@RequestParam(value = "title", required=true, defaultValue="" )String title, 

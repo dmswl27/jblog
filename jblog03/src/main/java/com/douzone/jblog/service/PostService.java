@@ -37,8 +37,31 @@ public class PostService {
 		return postRepository.getPostAll(id, categoryNo);
 	}
 
-	public PostVo findByCategoryNo(Long categoryNo) {
-		return postRepository.findByCategoryNo(categoryNo);
+	public PostVo findByCategoryNo(Long categoryNo , Long postNo) {
+		PostVo vop = new PostVo();
+		vop.setCategory_no(categoryNo);
+		vop.setNo(postNo);
+		return postRepository.findByCategoryNo(vop);
+	}
+
+	public void insertPost(Long categoryNo, String title, String contents) {
+		PostVo vop = new PostVo();
+		vop.setCategory_no(categoryNo);
+		vop.setContents(contents);
+		vop.setTitle(title);
+		postRepository.insertPost(vop);
+	}
+
+	public PostVo findByPostNo(Long no) {
+		return postRepository.findByPostNo(no);
+	}
+
+	public Long getNo(Long categoryNo) {
+		return postRepository.getNo(categoryNo);
+	}
+
+	public void delete(Long no) {
+		postRepository.delete(no);
 	}
 
 	

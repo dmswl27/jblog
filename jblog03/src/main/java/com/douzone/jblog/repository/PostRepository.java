@@ -18,8 +18,8 @@ public class PostRepository {
 	String namespace = "post.";
 	
 
-	public void insertPost(PostVo vo) {	
-		sqlSession.insert(namespace + "insert" , vo);					
+	public void insertPost(PostVo vop) {	
+		sqlSession.insert(namespace + "insertPost" , vop);					
 	}
 
 
@@ -41,9 +41,27 @@ public class PostRepository {
 	}
 
 
-	public PostVo findByCategoryNo(Long categoryNo) {
-		return sqlSession.selectOne(namespace+"findByCategoryNo" , categoryNo);
+	public PostVo findByCategoryNo(PostVo vop) {
+		return sqlSession.selectOne(namespace+"findByCategoryNo" , vop);
 	}
+
+
+	public PostVo findByPostNo(Long no) {
+		return sqlSession.selectOne(namespace+"findByPostNo", no);
+	}
+
+
+	public Long getNo(Long categoryNo) {
+		return sqlSession.selectOne(namespace+"getNo", categoryNo);
+	}
+
+
+	public void delete(Long no) {
+		sqlSession.delete(namespace+"delete" , no);
+	}
+
+
+
 
 
 }

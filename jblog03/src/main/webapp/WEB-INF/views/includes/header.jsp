@@ -5,7 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <h1 class="logo"
-	style="background:url(${pageContext.request.contextPath}/assets/images/logo.jpg)">JBlog</h1>
+	style="background:url(${pageContext.request.contextPath}/assets/image/logo.jpg)">JBlog</h1>
 <ul class="menu">
 	<c:choose>
 		<c:when test="${empty authUser }">

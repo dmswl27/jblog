@@ -46,6 +46,13 @@ public class CategoryRepository {
 		return sqlSession.selectOne(namespace+"getNo",id);
 	}
 
-	
+
+	public void delete(CategoryVo vo) {
+		sqlSession.delete(namespace+"delete" , vo);
+	}
+
+
+
+
 	
 }

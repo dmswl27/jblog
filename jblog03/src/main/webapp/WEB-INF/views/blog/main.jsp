@@ -22,7 +22,7 @@
 				</div>
 				<ul class="blog-list">
 		      		<c:forEach items="${listp }" var="post" >
-					<li><a href="">${post.title }</a> <span>${post.reg_date }</span>	</li>
+					<li><a href="${pageContext.request.contextPath}/${id}/${post.category_no}/${post.no}">${post.title }</a> <span>${post.reg_date }</span>	</li>
 					</c:forEach>
 				</ul>
 				

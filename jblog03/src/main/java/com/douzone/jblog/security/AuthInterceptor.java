@@ -50,18 +50,14 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 			return false;
 		}
 		
-/*		// 7. 권한(Authorizeation) 체크를 위해서 @Auth의 role 가져오기()
-		String role = auth.role();
-		String authRole = authUser.getRole();
-		if("ADMIN".equals(role)) {
-//			if(!"ADMIN".equals(authRole)) {
-			if("USER".equals(authRole)) {
-				response.sendRedirect(request.getContextPath());
-//				request.getRequestDispatcher("/WEB-INF/views/admin/main.jsp").forward(request, response);
-				return false;
-			}
+		// 7. 권한(Authorizeation) 체크를 위해서 @Auth의 role 가져오기()
+		String urlId = request.getRequestURI().split("/")[2];
+		String authId = authUser.getId();
+		if(!urlId.equals(authId) ) {
+			response.sendRedirect(request.getContextPath()+"/"+ urlId);
+			return false;
 		}
-*/				
+				
 		return true;
 	}
 	

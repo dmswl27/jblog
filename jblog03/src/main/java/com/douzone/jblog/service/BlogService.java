@@ -37,11 +37,11 @@ public class BlogService {
 
 
 	public void update(String url, String title, String id) {
-		BlogVo vo = new BlogVo();
-		vo.setLogo(url);
-		vo.setTitle(title);
-		vo.setId(id);
-		blogRepository.update(vo);
+		BlogVo vob = new BlogVo();
+		vob.setLogo(url);
+		vob.setTitle(title);
+		vob.setId(id);
+		blogRepository.update(vob);
 	}
 
 

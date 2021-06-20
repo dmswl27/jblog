@@ -45,4 +45,14 @@ public class CategoryService {
 		return categoryRepository.getNo(id);
 	}
 
+	public void delete(Long no, String id) {
+		CategoryVo vo = new CategoryVo();
+		vo.setNo(no);
+		vo.setBlog_id(id);
+		categoryRepository.delete(vo);
+	}
+
+
+
+
 }
