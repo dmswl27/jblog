@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="post">
+	<insert id="insertPost" parameterType="postvo">	
+	<![CDATA[  
+	 INSERT
+	 INTO
+	 post 
+	 VALUES(null , #{title} ,#{contents} , now() ,#{category_no})
+	]]>
+	</insert>
+	
+	<select id="getPostAll" parameterType="map" resultType="postvo">
+	select 
+			p.no, p.title, p.contents, p.reg_date , p.category_no 
+		from 
+			post as p, category as c 
+		where 
+			p.category_no=c.no and p.category_no=#{categoryNo } and c.blog_id=#{id }
+		order by p.reg_date desc
+	</select>
+	
+	<select id="findByCategoryNo" parameterType="postvo" resultType="postvo">
+	SELECT no, title, contents, reg_date from post where category_no = #{category_no} and no = #{no} 
+	</select>
+	
+	<select id="getNo" parameterType="Long" resultType="long">
+	 select no from post where category_no = #{categoryNo} order by no limit 1
+	</select>
+	
+	<delete id="delete" parameterType="Long">
+		delete from post where category_no = #{no}
+	</delete>
+
+	
+	
+</mapper>

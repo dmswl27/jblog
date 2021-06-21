@@ -69,7 +69,7 @@ public class BlogController {
 
 		BlogVo vob = blogService.findById(id);
 		model.addAttribute("vob",vob);
-		model.addAttribute(authUser);
+		
 		
 
 		List<CategoryVo> listc = categoryService.findByCategory(id);
