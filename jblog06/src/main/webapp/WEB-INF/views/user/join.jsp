@@ -75,10 +75,11 @@
 			<form:input path="id" />
 			<input id="btn-checkid" type="button" value="id 중복체크">
 			<img id="img-checkid"
-				src="${pageContext.request.contextPath }/assets/images/check.png"
+				src="${pageContext.request.contextPath }/assets/image/check.png"
 				style="width: 18px; vertical-align: bottom; display: none" />
 			<p style="color: #f00; text-align: left; padding-left: 0">
 				<form:errors path="id" />
+				
 			</p>
 
 			<label class="block-label" for="password">패스워드</label>

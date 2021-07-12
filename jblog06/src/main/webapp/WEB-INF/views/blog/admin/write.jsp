@@ -2,6 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%
+pageContext.setAttribute("newline", "\n");
+%>
 <!doctype html>
 <html>
 <head>
@@ -30,7 +33,7 @@
 			      		</tr>
 			      		<tr>
 			      			<td class="t" >내용</td>
-			      			<td><textarea name="contents"></textarea></td>
+			      			<td><textarea name="contents">${fn:replace(category.contents, newline, "<br/>")}</textarea></td>
 			      		</tr>
 			      		<tr>
 			      			<td>&nbsp;</td>

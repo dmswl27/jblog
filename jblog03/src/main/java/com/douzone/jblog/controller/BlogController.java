@@ -160,5 +160,10 @@ public class BlogController {
 		blogService.update(url, title, id);
 		return "redirect:/" +id;
 	}
+	
+	@RequestMapping("/admin/category/api")
+	public String cateroryApi() {
+		return "blog/admin/category2";
+	}
 
 }

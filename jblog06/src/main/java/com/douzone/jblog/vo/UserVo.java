@@ -1,6 +1,5 @@
 package com.douzone.jblog.vo;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;

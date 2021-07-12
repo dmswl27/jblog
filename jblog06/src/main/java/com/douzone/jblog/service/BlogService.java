@@ -25,7 +25,7 @@ public class BlogService {
 		BlogVo vob = new BlogVo();
 		vob.setId(vo.getId());
 		vob.setTitle(vo.getId()+"'s blog");
-		vob.setLogo("/assets/images/default_image.jpg");
+		vob.setLogo("/assets/image/default_image.jpg");
 		blogRepository.insertBlog(vob);
 		
 	}

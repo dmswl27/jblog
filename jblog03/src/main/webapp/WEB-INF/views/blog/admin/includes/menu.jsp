@@ -7,5 +7,6 @@
 <ul class="admin-menu">
 	<li><a href="${pageContext.request.contextPath}/${authUser.id}/admin/basic">기본설정</a></li>
 	<li class="selected"><a href="${pageContext.request.contextPath}/${authUser.id}/admin/category">카테고리</a></li>
+	<li class="selected"><a href="${pageContext.request.contextPath}/${authUser.id}/admin/category/api">카테고리2</a></li>
 	<li><a href="${pageContext.request.contextPath}/${authUser.id}/admin/write">글작성</a></li>
 </ul>
